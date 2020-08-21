@@ -29,12 +29,13 @@ services:
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
       - PAD_OPTIONS_LANG=${PAD_OPTIONS_LANG}
       - LOGLEVEL=${LOGLEVEL}
+      - SOFFICE=${SOFFICE}
     ports:
-      - 127.0.0.1:9001:9001
+      - 127.0.0.1:9002:9001
     security_opt:
       - no-new-privileges:true
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9001"]
+      test: ["CMD", "curl", "-f", "http://localhost:9002"]
       interval: 1m30s
       timeout: 10s
       retries: 3
