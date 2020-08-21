@@ -1,0 +1,45 @@
+version: '2.4'
+
+services:
+  db:
+    image: postgres:12
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - db:/var/lib/postgresql/data
+    hostname: db
+  app:
+    build:
+      context: .
+      args:
+        ETHERPAD_PLUGINS: ${ETHERPAD_PLUGINS}
+    #image: etherpad/etherpad:1.8.4
+    environment:
+      - DB_TYPE=${DB_TYPE}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - TITLE=${TITLE}
+      - DEFAULT_PAD_TEXT=${DEFAULT_PAD_TEXT}
+      - ADMIN_USER=${ADMIN_USER}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - PAD_OPTIONS_LANG=${PAD_OPTIONS_LANG}
+      - LOGLEVEL=${LOGLEVEL}
+    ports:
+      - 127.0.0.1:9001:9001
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9001"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      - db
+
+volumes:
+  db:
