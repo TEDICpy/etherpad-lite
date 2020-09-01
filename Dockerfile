@@ -10,8 +10,9 @@ LABEL maintainer="Etherpad team, https://github.com/ether/etherpad-lite"
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
-        && apt-get install -y --no-install-recommends \
-                libreoffice
+  && apt-get install -y --no-install-recommends \
+    libreoffice \
+    curl
 
 # plugins to install while building the container. By default no plugins are
 # installed.

@@ -74,6 +74,11 @@
  *    "defaultPadText" : "${DEFAULT_PAD_TEXT}Line 1\nLine 2"
  */
 {
+
+"ep_toc": {
+  "disable_by_default": false
+},
+
   /*
    * Name your instance!
    */
